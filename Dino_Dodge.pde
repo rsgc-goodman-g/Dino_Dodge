@@ -1,10 +1,11 @@
 // global variables (can be used everywhere below)
-float x1;    // tracks horizontal position of first cactus
-float s1;    // speed for first cactus
-float a1;    // acceleration for first cactus
+Cactus c1;
+Cactus c2;
+
 float dinoY;     // tracks position of dino
 float dinoS;     // tracks speed of dino
 float dinoA;     // tracks acceleration of the dino
+
 float gravity;   // gravity
 float distance;  // track the distance between the dino and a cactus
 
@@ -13,14 +14,9 @@ void setup() {
   // draw the canvas
   size(800, 200);
   
-  // set the initial position of the cactus
-  x1 = 900; // position it off-screen on the right
+  c1 = new Cactus(900, -0.1, -1, 50);
+  c2 = new Cactus(900, -0.2, -1, 25);
   
-  // set the intial acceleration
-  a1 = -0.1;
-  
-  // set the initial speed
-  s1 = -1;
   
   // set dino initial vertical position
   dinoY = 170;
@@ -32,7 +28,7 @@ void setup() {
   dinoA = 0;
   
   // set gravity
-  gravity = 0.025;
+  gravity = 0.02;
 }
 
 // this function runs repeatedly
@@ -40,21 +36,8 @@ void draw() {
   // background clears each time the program loops
   background(255);
   
-  // draw a circle at bottom right corner of the screen
-  //       x    y    w   h
-  ellipse(x1, 175, 50, 50);
-  
-  // change the speed
-  s1 = s1 + a1;
-  
-  // create the appearance of moving by changing the x position
-  x1 = x1 + s1;
-  
-  // put the cactus back on the right edge if it goes off the left edge
-  if (x1 < -25) {
-     x1 = 900; // place off screen on right 
-     s1 = -1;  // reset the speed (to avoid insanely fast movement)
-  }
+  c1.update(gravity);
+  c2.update(gravity);
 
   // Change dino's acceleration based on gravity
   dinoA = dinoA + gravity;
@@ -82,19 +65,19 @@ void draw() {
   text("dinoA is " + dinoA, 150, 75);
   text("distance is " + distance, 150, 100);
   
-  // determine the distance between the objects
-  //        dino - cactus
-  float a = dinoY - 175;
-  float b = 50- x1;
-  distance = sqrt( pow(a, 2) + pow(b, 2) );
+  //// determine the distance between the objects
+  ////        dino - cactus
+  //float a = dinoY - 175;
+  //float b = 50- x1;
+  //distance = sqrt( pow(a, 2) + pow(b, 2) );
   
-  // determine whether there is a hit
-  if (distance < (30 + 25) ) {
-    textSize(80);
-    text("GAME OVER", 275, 100);
+  //// determine whether there is a hit
+  //if (distance < (30 + 25) ) {
+  //  textSize(80);
+  //  text("GAME OVER", 275, 100);
     
-    noLoop();
-  }
+  //  noLoop();
+  //}
   
 }
 
@@ -104,5 +87,5 @@ void keyPressed() {
   // Make dino move "up" on the screen
   // (negative acceleration is required, given direction of Y axis
   //  in Processing's co-ordinate system)
-  dinoA = -0.5; 
+  dinoA = -0.55; 
 }
