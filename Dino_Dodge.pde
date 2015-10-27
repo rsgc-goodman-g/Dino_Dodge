@@ -2,10 +2,6 @@
 Cactus c1;
 Cactus c2;
 
-float dinoY;     // tracks position of dino
-float dinoS;     // tracks speed of dino
-float dinoA;     // tracks acceleration of the dino
-
 float gravity;   // gravity
 float distance;  // track the distance between the dino and a cactus
 
