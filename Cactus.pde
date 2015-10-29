@@ -1,36 +1,59 @@
 class Cactus {
-  // global variables for the cactus
-  float x1;    // tracks horizontal position of first cactus
-  float s1;    // speed for first cactus
-  float a1;    // acceleration for first cactus
-  float h;    // height of the cactus
+  //global variables for cactus
+  float x1;  //tracks horizontal position of the first cactus
+  float y1;  //tracks horizontal position of the first cactus
+  float a1;  //tracks acceleration for the first cactus
+  float s1;  //tracks the speed of the first cactus
+  float r1;  //tracks the radius of the cactus
 
-  // constucter (like setup - runs once)
-  Cactus(float x_, float a_, float s_, float h_) {
+  //constructor (like setup runs once)
+  Cactus(float x_, float a_, float s_) {
     x1 = x_;
-    s1 = s_;
+    y1 = 175;
     a1 = a_;
-    h = h_;
+    s1 = s_;
+    r1 = 25;
   }
 
-  // update: draws things related to cactus
-  void update (float gravity) {
-    // make the cactus move
-    // draw a circle at bottom right corner of the screen
-    //       x    y    w   h
-    ellipse(x1, 175, h, h);
+  //update: draws things related to cactus
+  void update(float g) {
 
-    // change the speed
+    //draw a cactus at the bottom right corner of the screen
+    fill(0, 0, 255);
+    ellipse(x1, y1, r1*2, r1*2);
+
+    //change the horizontal speed (speed is changed by acceleration)
     s1 = s1 + a1;
 
-    // create the appearance of moving by changing the x position
+    //create the appearance of moving by changing the x position
     x1 = x1 + s1;
 
-    // put the cactus back on the right edge if it goes off the left edge
-    if (x1 < -25) {
-      x1 = 900; // place off screen on right 
-      s1 = -1;  // reset the speed (to avoid insanely fast movement)
+    // reset the position
+    if (x1 < -50) {
+      x1 = 900; //place off screen on right 
+      s1 = -10; //reset the speed
     }
   }
   
-} // end of class
+  // getX
+  //
+  // Purpose: an accessor method; lets us find out where the cactus is (horizontally)
+  float getX() {
+    return x1;
+  }
+  
+  // getY
+  //
+  // Purpose: an accessor method; lets us find out where the cactus is (vertically)
+  float getY() {
+    return y1;
+  }
+
+  // getR
+  //
+  // Purpose: an accessor method; lets us find out the cactus radius
+  float getR() {
+    return r1;
+  }
+  
+}
